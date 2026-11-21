@@ -12,10 +12,14 @@ lab14-dawa/
 │   │   ├── about/page.tsx
 │   │   ├── projects/
 │   │   │   ├── [slug]/page.tsx
-│   │   │   └── page.tsx
+│   │   │   ├── page.tsx
+│   │   ├── robots.ts
+│   │   └── sitemap.ts
 │   │   ├── globals.css
 │   │   ├── layout.tsx
-│   │   └── page.tsx
+│   │   ├── page.tsx
+│   │   ├── robots.ts
+│   │   └── sitemap.ts
 │   ├── components/
 │   │   ├── Footer.tsx
 │   │   ├── Header.tsx
