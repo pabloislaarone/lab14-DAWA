@@ -1,6 +1,13 @@
-import { personalInfo } from '@/lib/data';
+import { personalInfo, whatsappUrl } from '@/lib/data';
 
 export default function Footer() {
+  const links = [
+    { href: personalInfo.github, label: 'GitHub', external: true },
+    { href: personalInfo.linkedin, label: 'LinkedIn', external: true },
+    { href: whatsappUrl, label: 'WhatsApp', external: true },
+    { href: `mailto:${personalInfo.email}`, label: 'Email', external: false },
+  ].filter((link) => link.href);
+
   return (
     <footer className="bg-gray-900 text-white py-8">
       <div className="container mx-auto px-4">
@@ -9,31 +16,17 @@ export default function Footer() {
             © {new Date().getFullYear()} {personalInfo.name}. Todos los derechos reservados.
           </p>
           <div className="flex gap-6">
-            <a
-              href={personalInfo.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white transition"
-              aria-label="GitHub"
-            >
-              GitHub
-            </a>
-            <a
-              href={personalInfo.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white transition"
-              aria-label="LinkedIn"
-            >
-              LinkedIn
-            </a>
-            <a
-              href={`mailto:${personalInfo.email}`}
-              className="text-gray-400 hover:text-white transition"
-              aria-label="Email"
-            >
-              Email
-            </a>
+            {links.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                className="text-gray-400 hover:text-white transition"
+                aria-label={link.label}
+              >
+                {link.label}
+              </a>
+            ))}
           </div>
         </div>
       </div>

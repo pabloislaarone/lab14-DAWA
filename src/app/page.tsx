@@ -1,7 +1,7 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { projects, personalInfo } from '@/lib/data';
 import ProjectCard from '@/components/ProjectCard';
+import Avatar from '@/components/Avatar';
 
 export default function Home() {
   const featuredProjects = projects.filter((p) => p.featured);
@@ -10,14 +10,13 @@ export default function Home() {
     <div className="container mx-auto px-4 py-12">
       {/* Hero Section */}
       <section className="text-center mb-20">
-        <div className="relative w-32 h-32 mx-auto mb-6">
-          <Image
+        <div className="relative w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden">
+          <Avatar
             src={personalInfo.avatar}
             alt={personalInfo.name}
-            fill
-            className="rounded-full object-cover"
-            preload
             sizes="128px"
+            className="rounded-full"
+            preload
           />
         </div>
         <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-4">
@@ -29,12 +28,18 @@ export default function Home() {
         <p className="text-lg text-gray-700 max-w-2xl mx-auto mb-8">
           {personalInfo.description}
         </p>
-        <div className="flex gap-4 justify-center">
+        <div className="flex flex-wrap gap-4 justify-center">
           <Link
             href="/projects"
             className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition"
           >
             Ver Proyectos
+          </Link>
+          <Link
+            href="/contact"
+            className="bg-gray-900 text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition"
+          >
+            Contáctame
           </Link>
           <Link
             href="/about"
@@ -54,6 +59,11 @@ export default function Home() {
           {featuredProjects.map((project) => (
             <ProjectCard key={project.slug} project={project} />
           ))}
+        </div>
+        <div className="text-center mt-10">
+          <Link href="/projects" className="text-blue-700 font-semibold hover:underline">
+            Ver todos los proyectos →
+          </Link>
         </div>
       </section>
     </div>

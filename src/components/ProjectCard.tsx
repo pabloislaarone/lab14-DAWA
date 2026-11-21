@@ -10,25 +10,33 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   return (
     <Link
       href={`/projects/${project.slug}`}
-      className="group block bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
+      className="group flex flex-col bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
     >
       <div className="relative h-48 overflow-hidden">
         {/* Imágenes con lazy loading */}
         <Image
           src={project.image}
-          alt={project.title}
+          alt={`Portada del proyecto ${project.title}`}
           fill
           loading="lazy"
           className="object-cover group-hover:scale-105 transition-transform duration-300"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       </div>
-      <div className="p-6">
+      <div className="p-6 flex flex-col grow">
+        <div className="flex items-center justify-between gap-2 mb-2">
+          <span className="text-xs font-semibold text-blue-700">{project.category}</span>
+          {project.status === 'En desarrollo' && (
+            <span className="text-xs font-semibold bg-amber-100 text-amber-900 px-2 py-0.5 rounded-full">
+              En desarrollo
+            </span>
+          )}
+        </div>
         <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
           {project.title}
         </h3>
         <p className="text-gray-600 mb-4 line-clamp-2">{project.description}</p>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 mt-auto">
           {project.technologies.slice(0, 3).map((tech) => (
             <span
               key={tech}

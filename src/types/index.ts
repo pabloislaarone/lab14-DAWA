@@ -1,3 +1,8 @@
+export interface ProjectLink {
+  label: string;
+  url: string;
+}
+
 export interface Project {
   slug: string;
   title: string;
@@ -7,6 +12,14 @@ export interface Project {
   demoUrl?: string;
   githubUrl?: string;
   featured: boolean;
+  category: string;
+  status: 'Terminado' | 'En desarrollo';
+  context: string;
+  problem: string;
+  solution: string;
+  role: string;
+  highlights: string[];
+  extraLinks?: ProjectLink[];
 }
 
 export interface Metadata {

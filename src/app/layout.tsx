@@ -19,18 +19,27 @@ export const metadata: Metadata = {
   },
   description: personalInfo.description,
   keywords: [
+    'Pablo Isla',
+    'desarrollador',
     'desarrollador web',
-    'full stack',
+    'desarrollador móvil',
+    'spring boot',
+    'microservicios',
     'next.js',
     'react',
-    'typescript',
+    'kotlin',
     'portafolio',
+    'TECSUP',
+    'Lima',
   ],
-  authors: [{ name: personalInfo.name }],
+  authors: [{ name: personalInfo.name, url: personalInfo.github }],
   creator: personalInfo.name,
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
     type: 'website',
-    locale: 'es_ES',
+    locale: 'es_PE',
     url: personalInfo.siteUrl,
     title: `${personalInfo.name} - ${personalInfo.title}`,
     description: personalInfo.description,
@@ -49,7 +58,6 @@ export const metadata: Metadata = {
     title: `${personalInfo.name} - ${personalInfo.title}`,
     description: personalInfo.description,
     images: ['/og-image.jpg'],
-    creator: '@tuusuario',
   },
   robots: {
     index: true,
@@ -61,9 +69,6 @@ export const metadata: Metadata = {
       'max-image-preview': 'large',
       'max-snippet': -1,
     },
-  },
-  verification: {
-    google: 'tu-codigo-de-verificacion',
   },
 };
 
