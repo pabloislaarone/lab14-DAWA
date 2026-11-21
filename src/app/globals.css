@@ -1,11 +1,170 @@
 @import "tailwindcss";
 
-@theme inline {
-  --font-sans: var(--font-inter);
+/* Catálogo de exposición: muro carbón, cartelas, un solo acento salvia */
+@theme {
+  --color-ground: #141513;
+  --color-paper: #1b1c1a;
+  --color-raised: #232521;
+  --color-line: #2e302c;
+  --color-line-strong: #43463f;
+  --color-bone: #e9e6df;
+  --color-muted: #a8a59c;
+  --color-faint: #8f8c84;
+  --color-sage: #a9c4a0;
+  --color-sage-strong: #c4dabb;
+  --color-danger: #e8a598;
+
+  --font-sans: var(--font-franklin), ui-sans-serif, system-ui, sans-serif;
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+html {
+  background: var(--color-ground);
+  color-scheme: dark;
+  scrollbar-color: var(--color-line-strong) var(--color-ground);
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: #ffffff;
-  color: #171717;
-  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  background: var(--color-ground);
+  color: var(--color-bone);
+  font-family: var(--font-sans);
+  font-feature-settings: "kern", "liga";
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  caret-color: var(--color-sage);
+}
+
+::selection {
+  background: var(--color-sage);
+  color: var(--color-ground);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-sage);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+/* Enlaces de texto: subrayado fino que se ilumina en salvia */
+.text-link {
+  color: var(--color-bone);
+  text-decoration-line: underline;
+  text-decoration-color: var(--color-line-strong);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.3em;
+  transition: text-decoration-color 200ms ease, color 200ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .text-link:hover {
+    text-decoration-color: var(--color-sage);
+    color: var(--color-sage-strong);
+  }
+}
+
+/* Botones: responden a la presión */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 3rem;
+  padding: 0 1.5rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition:
+    transform 160ms var(--ease-out),
+    background-color 200ms ease,
+    border-color 200ms ease,
+    color 200ms ease;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-primary {
+  background: var(--color-sage);
+  color: var(--color-ground);
+}
+
+.btn-secondary {
+  border: 1px solid var(--color-line-strong);
+  color: var(--color-bone);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn-primary:hover:not(:disabled) {
+    background: var(--color-sage-strong);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--color-sage);
+  }
+}
+
+/* Entrada de la portada: el único momento orquestado al cargar */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-line {
+    animation: hero-in 700ms var(--ease-out) both;
+    animation-delay: calc(var(--i, 0) * 70ms);
+  }
+}
+
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+    filter: blur(6px);
+  }
+}
+
+/* Láminas: se descubren una vez al entrar en sala */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .plate-reveal {
+      animation: plate-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 55%;
+    }
+  }
+}
+
+@keyframes plate-in {
+  from {
+    clip-path: inset(0 0 100% 0);
+    opacity: 0.4;
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
 }

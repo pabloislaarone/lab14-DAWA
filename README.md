@@ -5,20 +5,18 @@
 ```
 lab14-dawa/
 ├── public/
-│   ├── projects/
+│   ├── projects/            # Láminas (ilustraciones) de los proyectos
 │   ├── og-image.jpg
 │   └── og-projects.jpg
 ├── src/
 │   ├── app/
 │   │   ├── about/page.tsx
 │   │   ├── contact/
-│   │   │   ├── actions.ts
+│   │   │   ├── actions.ts   # Server Action que envía el mensaje con Resend
 │   │   │   └── page.tsx
 │   │   ├── projects/
 │   │   │   ├── [slug]/page.tsx
-│   │   │   ├── page.tsx
-│   │   ├── robots.ts
-│   │   └── sitemap.ts
+│   │   │   └── page.tsx
 │   │   ├── globals.css
 │   │   ├── layout.tsx
 │   │   ├── page.tsx
@@ -26,12 +24,16 @@ lab14-dawa/
 │   │   └── sitemap.ts
 │   ├── components/
 │   │   ├── Avatar.tsx
+│   │   ├── ContactBand.tsx
 │   │   ├── ContactForm.tsx
 │   │   ├── Footer.tsx
 │   │   ├── Header.tsx
+│   │   ├── NavLinks.tsx
 │   │   └── ProjectCard.tsx
-│   ├── lib/data.ts
+│   ├── fonts/               # Libre Franklin (OFL)
+│   ├── lib/data.ts          # Datos personales y proyectos
 │   └── types/index.ts
+├── .env.example
 └── next.config.ts
 ```
 

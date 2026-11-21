@@ -1,11 +1,11 @@
 import { Metadata } from 'next';
-import Link from 'next/link';
 import { personalInfo } from '@/lib/data';
 import Avatar from '@/components/Avatar';
+import ContactBand from '@/components/ContactBand';
 
 export const metadata: Metadata = {
-  title: 'Sobre Mí',
-  description: `Conoce más sobre ${personalInfo.name}, desarrollador de software web, móvil y backend formado en TECSUP.`,
+  title: 'Perfil',
+  description: `Conoce a ${personalInfo.name}, desarrollador de software web, móvil y backend formado en TECSUP.`,
   alternates: {
     canonical: '/about',
   },
@@ -14,103 +14,83 @@ export const metadata: Metadata = {
 const skillGroups = [
   {
     title: 'Backend',
-    skills: ['Java & Spring Boot', 'Microservicios', 'Node.js & Express', 'Django REST'],
+    skills: ['Java', 'Spring Boot', 'Microservicios', 'Node.js', 'Express', 'Django REST'],
   },
   {
     title: 'Frontend',
-    skills: ['React & Next.js', 'TypeScript', 'Tailwind CSS'],
+    skills: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS'],
   },
   {
     title: 'Móvil',
-    skills: ['Kotlin & Jetpack Compose', 'Flutter'],
+    skills: ['Kotlin', 'Jetpack Compose', 'Flutter'],
   },
   {
-    title: 'Datos y Cloud',
-    skills: ['MySQL', 'MongoDB', 'Firebase', 'Docker', 'AWS', 'Git & GitHub'],
+    title: 'Datos y nube',
+    skills: ['MySQL', 'MongoDB', 'Firebase', 'Docker', 'AWS', 'Git'],
   },
 ];
 
 export default function AboutPage() {
   return (
-    <div className="container mx-auto px-4 py-12">
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-4xl font-bold text-gray-900 mb-8">Sobre Mí</h1>
+    <>
+      <section className="mx-auto max-w-6xl px-5 sm:px-8 pt-20 md:pt-28 pb-20 md:pb-28">
+        <h1 className="text-[clamp(3rem,9vw,5.5rem)] font-bold tracking-[-0.04em] leading-[0.95]">
+          Perfil
+        </h1>
 
-        <div className="grid md:grid-cols-3 gap-8 mb-12">
-          <div className="md:col-span-1">
-            <div className="relative w-full aspect-square rounded-lg overflow-hidden">
-              <Avatar
-                src={personalInfo.avatar}
-                alt={personalInfo.name}
-                sizes="(max-width: 768px) 100vw, 33vw"
-                className="rounded-lg"
-              />
+        <div className="mt-12 md:mt-16 grid gap-10 md:grid-cols-12 md:gap-12">
+          <div className="md:col-span-4">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-sm border border-line">
+              <Avatar src={personalInfo.avatar} name={personalInfo.name} sizes="(max-width: 768px) 100vw, 360px" />
             </div>
           </div>
 
-          <div className="md:col-span-2">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
-              ¡Hola! Soy {personalInfo.name}
-            </h2>
-            <div className="text-gray-700 space-y-4 leading-relaxed">
+          <div className="md:col-span-8 md:pt-2">
+            <p className="text-2xl md:text-[1.75rem] leading-snug tracking-[-0.015em] text-bone">
+              Soy {personalInfo.name}, desarrollador de software y estudiante de Diseño y
+              Desarrollo de Software en TECSUP, en {personalInfo.location}.
+            </p>
+            <div className="mt-8 space-y-5 text-lg leading-relaxed text-muted max-w-[65ch]">
               <p>
-                Soy desarrollador de software y estudiante de Diseño y Desarrollo de
-                Software en TECSUP, en {personalInfo.location}. Trabajo en todo el ciclo
-                de una aplicación: backend, frontend web y apps móviles.
+                Trabajo en todo el ciclo de una aplicación: backend, frontend web y apps móviles.
+                Donde más experiencia tengo es en backend con Java y Spring Boot, diseñando
+                microservicios con API Gateway, balanceo de carga, mensajería y patrones de
+                resiliencia.
               </p>
               <p>
-                Donde más experiencia tengo es en backend con Java y Spring Boot,
-                diseñando microservicios con API Gateway, balanceo de carga, mensajería y
-                patrones de resiliencia. También desarrollo apps Android con Kotlin y
-                Jetpack Compose, y aplicaciones web con React y Next.js.
+                También desarrollo apps Android con Kotlin y Jetpack Compose, y aplicaciones web
+                con React y Next.js.
               </p>
               <p>
-                Me interesa sobre todo construir productos que resuelvan problemas
-                reales: desde una plataforma de tutorías con IA hasta una app para el
-                negocio de una estilista. Actualmente desarrollo mi proyecto de fin de
-                carrera, un simulador con IA para entrenar la toma de requerimientos.
+                Me interesa construir productos que resuelvan problemas reales: desde una
+                plataforma de tutorías con IA hasta una app para el negocio de una estilista.
+                Ahora desarrollo mi proyecto de fin de carrera, un simulador con IA para entrenar
+                la toma de requerimientos.
               </p>
             </div>
           </div>
         </div>
+      </section>
 
-        {/* Skills Section con lazy loading implícito */}
-        <section className="mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-6">
-            Habilidades Técnicas
-          </h2>
-          <div className="grid sm:grid-cols-2 gap-6">
+      {/* Habilidades técnicas */}
+      <section className="mx-auto max-w-6xl px-5 sm:px-8 pb-24 md:pb-32">
+        <div className="grid gap-8 md:grid-cols-12 border-t border-line pt-6">
+          <h2 className="text-xl font-semibold md:col-span-4">Habilidades técnicas</h2>
+          <dl className="md:col-span-8">
             {skillGroups.map((group) => (
-              <div key={group.title} className="bg-white p-6 rounded-lg shadow-md">
-                <h3 className="text-lg font-bold text-gray-900 mb-3">{group.title}</h3>
-                <ul className="flex flex-wrap gap-2">
-                  {group.skills.map((skill) => (
-                    <li
-                      key={skill}
-                      className="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm font-medium"
-                    >
-                      {skill}
-                    </li>
-                  ))}
-                </ul>
+              <div
+                key={group.title}
+                className="grid gap-2 sm:grid-cols-[9rem_1fr] sm:gap-6 py-5 border-b border-line first:pt-0"
+              >
+                <dt className="text-lg font-semibold">{group.title}</dt>
+                <dd className="text-muted text-lg leading-relaxed">{group.skills.join(' · ')}</dd>
               </div>
             ))}
-          </div>
-        </section>
+          </dl>
+        </div>
+      </section>
 
-        <section className="bg-gray-900 text-white rounded-lg p-8 text-center">
-          <h2 className="text-2xl font-bold mb-3">¿Trabajamos juntos?</h2>
-          <p className="text-gray-300 mb-6">
-            Estoy abierto a prácticas, proyectos freelance y oportunidades laborales.
-          </p>
-          <Link
-            href="/contact"
-            className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition"
-          >
-            Contáctame
-          </Link>
-        </section>
-      </div>
-    </div>
+      <ContactBand />
+    </>
   );
 }

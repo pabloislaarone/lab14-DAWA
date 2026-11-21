@@ -3,10 +3,12 @@ import { Project } from '@/types';
 export const projects: Project[] = [
   {
     slug: 'edumatch-ai',
+    roleShort: 'Frontend Android, equipo de 3',
+    contextShort: 'Proyecto integrador, TECSUP',
     title: 'EduMatch AI',
     description:
       'Plataforma que conecta estudiantes con tutores mediante inteligencia artificial, con app Android, web y pagos integrados.',
-    image: '/projects/edumatch-ai.jpg',
+    image: '/projects/edumatch-ai.png',
     technologies: [
       'Spring Boot',
       'Django REST',
@@ -36,10 +38,12 @@ export const projects: Project[] = [
   },
   {
     slug: 'marcador-26',
+    roleShort: 'Desarrollo completo',
+    contextShort: 'Desarrollo en la Nube, TECSUP',
     title: 'Marcador 26',
     description:
       'App de pronósticos del Mundial 2026 con salas privadas, ranking en tiempo real y arquitectura escalable con Docker.',
-    image: '/projects/marcador-26.jpg',
+    image: '/projects/marcador-26.png',
     technologies: [
       'Java 21',
       'Spring Boot',
@@ -71,10 +75,12 @@ export const projects: Project[] = [
   },
   {
     slug: 'elicitacion-ia',
+    roleShort: 'Proyecto individual',
+    contextShort: 'Proyecto de fin de carrera, TECSUP',
     title: 'Simulador de IA para toma de requerimientos',
     description:
       'Plataforma donde estudiantes de software practican entrevistas de requerimientos por voz con clientes simulados por IA.',
-    image: '/projects/elicitacion-ia.jpg',
+    image: '/projects/elicitacion-ia.png',
     technologies: ['IA generativa', 'Agentes conversacionales', 'Interfaz por voz', 'Web'],
     featured: true,
     category: 'Inteligencia Artificial',
@@ -95,10 +101,12 @@ export const projects: Project[] = [
   },
   {
     slug: 'techstore',
+    roleShort: 'Web y apps móviles',
+    contextShort: 'Laboratorios web y multiplataforma, TECSUP',
     title: 'TechStore',
     description:
       'Sistema de gestión de inventario con autenticación segura (JWT, OAuth y MFA) y app móvil en Flutter.',
-    image: '/projects/techstore.jpg',
+    image: '/projects/techstore.png',
     technologies: ['Node.js', 'Express', 'MongoDB', 'JWT', 'OAuth', 'MFA (TOTP)', 'Flutter'],
     githubUrl: 'https://github.com/pabloislaarone/Lab08-TechStore',
     featured: false,
@@ -123,10 +131,12 @@ export const projects: Project[] = [
   },
   {
     slug: 'control-salon',
+    roleShort: 'De principio a fin',
+    contextShort: 'Proyecto personal para una usuaria real',
     title: 'Control de ingresos para salón de belleza',
     description:
       'App para que una estilista registre sus ingresos y gastos del día y vea cómo le va semana a semana y mes a mes.',
-    image: '/projects/control-salon.jpg',
+    image: '/projects/control-salon.png',
     technologies: ['JavaScript', 'Chart.js', 'Google Apps Script', 'Kotlin', 'Jetpack Compose', 'Firebase'],
     featured: false,
     category: 'Producto real · Móvil',
@@ -147,10 +157,12 @@ export const projects: Project[] = [
   },
   {
     slug: 'ecoguardia-del-ruido',
+    roleShort: 'Producto y marketing, equipo de 4',
+    contextShort: 'Diseño de Proyectos de Innovación, TECSUP',
     title: 'EcoGuardia del Ruido',
     description:
       'Kit con Arduino que mide el ruido del aula y avisa con luces y pantalla cuando supera el nivel adecuado.',
-    image: '/projects/ecoguardia-del-ruido.jpg',
+    image: '/projects/ecoguardia-del-ruido.png',
     technologies: ['Arduino', 'Sensor de sonido', 'Pantalla LCD', 'LEDs'],
     featured: false,
     category: 'IoT · Innovación',

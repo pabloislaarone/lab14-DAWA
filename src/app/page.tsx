@@ -1,71 +1,103 @@
 import Link from 'next/link';
 import { projects, personalInfo } from '@/lib/data';
 import ProjectCard from '@/components/ProjectCard';
-import Avatar from '@/components/Avatar';
+import ContactBand from '@/components/ContactBand';
+
+const practice = [
+  {
+    area: 'Backend',
+    text: 'APIs y microservicios con Java y Spring Boot: API Gateway, balanceo de carga, mensajería con RabbitMQ y patrones de resiliencia.',
+  },
+  {
+    area: 'Móvil',
+    text: 'Apps Android nativas con Kotlin y Jetpack Compose, y apps multiplataforma con Flutter.',
+  },
+  {
+    area: 'Web',
+    text: 'Aplicaciones web con React y Next.js, cuidando rendimiento, accesibilidad y SEO.',
+  },
+];
 
 export default function Home() {
   const featuredProjects = projects.filter((p) => p.featured);
 
   return (
-    <div className="container mx-auto px-4 py-12">
-      {/* Hero Section */}
-      <section className="text-center mb-20">
-        <div className="relative w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden">
-          <Avatar
-            src={personalInfo.avatar}
-            alt={personalInfo.name}
-            sizes="128px"
-            className="rounded-full"
-            preload
-          />
-        </div>
-        <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-4">
+    <>
+      {/* Portada: quién es y qué hace */}
+      <section className="mx-auto max-w-6xl px-5 sm:px-8 pt-20 md:pt-32 pb-16 md:pb-24">
+        <h1
+          className="hero-line text-[clamp(3.5rem,11vw,6rem)] font-bold tracking-[-0.04em] leading-[0.92]"
+          style={{ '--i': 0 } as React.CSSProperties}
+        >
           {personalInfo.name}
         </h1>
-        <p className="text-xl md:text-2xl text-gray-600 mb-6">
-          {personalInfo.title}
+        <p
+          className="hero-line mt-6 max-w-3xl text-2xl md:text-[2rem] leading-snug tracking-[-0.015em] text-bone"
+          style={{ '--i': 1 } as React.CSSProperties}
+        >
+          Desarrollador de software.{' '}
+          <span className="text-muted">
+            Construyo backend con microservicios, apps Android y aplicaciones web.
+          </span>
         </p>
-        <p className="text-lg text-gray-700 max-w-2xl mx-auto mb-8">
-          {personalInfo.description}
-        </p>
-        <div className="flex flex-wrap gap-4 justify-center">
-          <Link
-            href="/projects"
-            className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition"
-          >
-            Ver Proyectos
+        <ul
+          className="hero-line mt-8 flex flex-wrap gap-x-6 gap-y-2 text-[0.95rem] text-muted"
+          style={{ '--i': 2 } as React.CSSProperties}
+        >
+          <li>{personalInfo.location}</li>
+          <li>Diseño y Desarrollo de Software, TECSUP</li>
+          <li className="flex items-center gap-2 text-bone">
+            <span aria-hidden="true" className="size-2 rounded-full bg-sage" />
+            Disponible para prácticas y freelance
+          </li>
+        </ul>
+        <div
+          className="hero-line mt-10 flex flex-wrap items-center gap-4"
+          style={{ '--i': 3 } as React.CSSProperties}
+        >
+          <Link href="/projects" className="btn btn-primary">
+            Ver proyectos
           </Link>
-          <Link
-            href="/contact"
-            className="bg-gray-900 text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition"
-          >
-            Contáctame
-          </Link>
-          <Link
-            href="/about"
-            className="bg-gray-200 text-gray-800 px-6 py-3 rounded-lg hover:bg-gray-300 transition"
-          >
-            Sobre Mí
+          <Link href="/contact" className="btn btn-secondary">
+            Escríbeme
           </Link>
         </div>
       </section>
 
-      {/* Featured Projects */}
-      <section>
-        <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-          Proyectos Destacados
-        </h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {featuredProjects.map((project) => (
-            <ProjectCard key={project.slug} project={project} />
-          ))}
-        </div>
-        <div className="text-center mt-10">
-          <Link href="/projects" className="text-blue-700 font-semibold hover:underline">
-            Ver todos los proyectos →
+      {/* Proyectos seleccionados: las láminas de la sala */}
+      <section className="mx-auto max-w-6xl px-5 sm:px-8 pb-24 md:pb-32">
+        <div className="flex flex-wrap items-baseline justify-between gap-4 border-t border-line pt-6 mb-12 md:mb-16">
+          <h2 className="text-xl font-semibold">Proyectos seleccionados</h2>
+          <Link href="/projects" className="text-link text-[0.95rem]">
+            Ver los {projects.length} proyectos
           </Link>
         </div>
+        <div className="flex flex-col gap-20 md:gap-28">
+          {featuredProjects.map((project, i) => (
+            <ProjectCard key={project.slug} project={project} reverse={i % 2 === 1} />
+          ))}
+        </div>
       </section>
-    </div>
+
+      {/* Qué hago */}
+      <section className="mx-auto max-w-6xl px-5 sm:px-8 pb-24 md:pb-32">
+        <div className="grid gap-8 md:grid-cols-12 border-t border-line pt-6">
+          <h2 className="text-xl font-semibold md:col-span-4">Qué hago</h2>
+          <dl className="md:col-span-8">
+            {practice.map((item) => (
+              <div
+                key={item.area}
+                className="grid gap-2 sm:grid-cols-[9rem_1fr] sm:gap-6 py-6 border-b border-line first:pt-0"
+              >
+                <dt className="text-lg font-semibold">{item.area}</dt>
+                <dd className="text-muted leading-relaxed">{item.text}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
+
+      <ContactBand />
+    </>
   );
 }

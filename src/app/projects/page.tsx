@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { projects, personalInfo } from '@/lib/data';
 import ProjectCard from '@/components/ProjectCard';
+import ContactBand from '@/components/ContactBand';
 
 export const metadata: Metadata = {
   title: 'Proyectos',
@@ -18,18 +19,31 @@ export const metadata: Metadata = {
 
 export default function ProjectsPage() {
   return (
-    <div className="container mx-auto px-4 py-12">
-      <h1 className="text-4xl font-bold text-gray-900 mb-4">Mis Proyectos</h1>
-      <p className="text-lg text-gray-600 mb-12 max-w-3xl">
-        Proyectos académicos, de equipo y personales: desde microservicios escalables
-        hasta apps móviles y productos para usuarios reales.
-      </p>
+    <>
+      <section className="mx-auto max-w-6xl px-5 sm:px-8 pt-20 md:pt-28 pb-16 md:pb-20">
+        <h1 className="text-[clamp(3rem,9vw,5.5rem)] font-bold tracking-[-0.04em] leading-[0.95]">
+          Proyectos
+        </h1>
+        <p className="mt-6 max-w-2xl text-xl leading-relaxed text-muted">
+          Proyectos académicos, de equipo y personales: desde microservicios escalables hasta
+          apps móviles y productos para usuarios reales.
+        </p>
+      </section>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {projects.map((project) => (
-          <ProjectCard key={project.slug} project={project} />
-        ))}
-      </div>
-    </div>
+      <section className="mx-auto max-w-6xl px-5 sm:px-8 pb-24 md:pb-32">
+        <div className="flex flex-col gap-20 md:gap-28 border-t border-line pt-12 md:pt-16">
+          {projects.map((project, i) => (
+            <ProjectCard
+              key={project.slug}
+              project={project}
+              reverse={i % 2 === 1}
+              headingLevel="h2"
+            />
+          ))}
+        </div>
+      </section>
+
+      <ContactBand />
+    </>
   );
 }

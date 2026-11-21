@@ -15,6 +15,8 @@ export interface Project {
   category: string;
   status: 'Terminado' | 'En desarrollo';
   context: string;
+  roleShort: string;
+  contextShort: string;
   problem: string;
   solution: string;
   role: string;

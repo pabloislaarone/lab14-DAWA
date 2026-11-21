@@ -4,54 +4,70 @@ import { Project } from '@/types';
 
 interface ProjectCardProps {
   project: Project;
+  // Las láminas alternan de lado, como en la sala
+  reverse?: boolean;
+  headingLevel?: 'h2' | 'h3';
 }
 
-export default function ProjectCard({ project }: ProjectCardProps) {
+// Una lámina del catálogo con su cartela
+export default function ProjectCard({ project, reverse = false, headingLevel = 'h3' }: ProjectCardProps) {
+  const Heading = headingLevel;
+  const href = `/projects/${project.slug}`;
+
   return (
-    <Link
-      href={`/projects/${project.slug}`}
-      className="group flex flex-col bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
-    >
-      <div className="relative h-48 overflow-hidden">
+    <article className="group grid gap-6 md:grid-cols-12 md:gap-10 md:items-end">
+      <Link
+        href={href}
+        tabIndex={-1}
+        aria-hidden="true"
+        className={`plate-reveal block relative aspect-[8/5] overflow-hidden rounded-sm bg-paper md:col-span-8 ${
+          reverse ? 'md:order-2 md:col-start-5' : ''
+        }`}
+      >
         {/* Imágenes con lazy loading */}
         <Image
           src={project.image}
-          alt={`Portada del proyecto ${project.title}`}
+          alt=""
           fill
           loading="lazy"
-          className="object-cover group-hover:scale-105 transition-transform duration-300"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-cover transition-transform duration-500 ease-[var(--ease-out)] group-hover:scale-[1.02]"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 760px"
         />
-      </div>
-      <div className="p-6 flex flex-col grow">
-        <div className="flex items-center justify-between gap-2 mb-2">
-          <span className="text-xs font-semibold text-blue-700">{project.category}</span>
-          {project.status === 'En desarrollo' && (
-            <span className="text-xs font-semibold bg-amber-100 text-amber-900 px-2 py-0.5 rounded-full">
-              En desarrollo
-            </span>
-          )}
-        </div>
-        <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
-          {project.title}
-        </h3>
-        <p className="text-gray-600 mb-4 line-clamp-2">{project.description}</p>
-        <div className="flex flex-wrap gap-2 mt-auto">
-          {project.technologies.slice(0, 3).map((tech) => (
-            <span
-              key={tech}
-              className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded"
-            >
-              {tech}
-            </span>
+      </Link>
+
+      <div className={`md:col-span-4 ${reverse ? 'md:order-1 md:col-start-1 md:row-start-1' : ''}`}>
+        <Heading className="text-2xl md:text-[1.75rem] font-bold tracking-[-0.02em] leading-tight">
+          <Link href={href} className="transition-colors duration-200 hover:text-sage-strong">
+            {project.title}
+          </Link>
+        </Heading>
+        <p className="text-muted mt-3 leading-relaxed">{project.description}</p>
+
+        <dl className="mt-6 border-t border-line text-sm">
+          {[
+            { term: 'Rol', value: project.roleShort },
+            { term: 'Contexto', value: project.contextShort },
+            { term: 'Técnica', value: project.technologies.slice(0, 4).join(' · ') },
+          ].map((row) => (
+            <div key={row.term} className="grid grid-cols-[6rem_1fr] gap-3 py-2.5 border-b border-line">
+              <dt className="text-faint">{row.term}</dt>
+              <dd className="text-bone">{row.value}</dd>
+            </div>
           ))}
-          {project.technologies.length > 3 && (
-            <span className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded">
-              +{project.technologies.length - 3}
-            </span>
-          )}
-        </div>
+          <div className="grid grid-cols-[6rem_1fr] gap-3 py-2.5 border-b border-line">
+            <dt className="text-faint">Estado</dt>
+            <dd className="flex items-center gap-2 text-bone">
+              <span
+                aria-hidden="true"
+                className={`size-2 rounded-full ${
+                  project.status === 'En desarrollo' ? 'bg-sage' : 'bg-line-strong'
+                }`}
+              />
+              {project.status}
+            </dd>
+          </div>
+        </dl>
       </div>
-    </Link>
+    </article>
   );
 }

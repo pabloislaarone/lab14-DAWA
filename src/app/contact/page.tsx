@@ -4,7 +4,7 @@ import ContactForm from '@/components/ContactForm';
 
 export const metadata: Metadata = {
   title: 'Contacto',
-  description: `Contacta a ${personalInfo.name}, ${personalInfo.title.toLowerCase()} de software. Disponible para prácticas, proyectos freelance y oportunidades laborales.`,
+  description: `Contacta a ${personalInfo.name}, desarrollador de software. Disponible para prácticas, proyectos freelance y oportunidades laborales.`,
   alternates: {
     canonical: '/contact',
   },
@@ -18,24 +18,9 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   const channels = [
-    whatsappUrl && {
-      label: 'WhatsApp',
-      value: 'Escríbeme directo',
-      href: whatsappUrl,
-      external: true,
-    },
-    {
-      label: 'Correo',
-      value: personalInfo.email,
-      href: `mailto:${personalInfo.email}`,
-      external: false,
-    },
-    personalInfo.linkedin && {
-      label: 'LinkedIn',
-      value: 'Ver perfil',
-      href: personalInfo.linkedin,
-      external: true,
-    },
+    whatsappUrl && { label: 'WhatsApp', value: 'Escríbeme directo', href: whatsappUrl, external: true },
+    { label: 'Correo', value: personalInfo.email, href: `mailto:${personalInfo.email}`, external: false },
+    personalInfo.linkedin && { label: 'LinkedIn', value: 'Ver perfil', href: personalInfo.linkedin, external: true },
     {
       label: 'GitHub',
       value: personalInfo.github.replace('https://', ''),
@@ -45,39 +30,47 @@ export default function ContactPage() {
   ].filter(Boolean) as { label: string; value: string; href: string; external: boolean }[];
 
   return (
-    <div className="container mx-auto px-4 py-12">
-      <div className="max-w-5xl mx-auto">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">Contacto</h1>
-        <p className="text-lg text-gray-600 mb-12 max-w-3xl">
-          ¿Tienes una oportunidad de prácticas, un proyecto o una idea que quieras
-          desarrollar? Escríbeme y te respondo lo antes posible.
-        </p>
+    <section className="mx-auto max-w-6xl px-5 sm:px-8 pt-20 md:pt-28 pb-24 md:pb-32">
+      <h1 className="text-[clamp(3rem,9vw,5.5rem)] font-bold tracking-[-0.04em] leading-[0.95]">
+        Contacto
+      </h1>
+      <p className="mt-6 max-w-2xl text-xl leading-relaxed text-muted">
+        ¿Tienes una oportunidad de prácticas, un proyecto o una idea que quieras desarrollar?
+        Escríbeme y te respondo lo antes posible.
+      </p>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          <aside className="md:col-span-1 space-y-4">
+      <div className="mt-14 md:mt-20 grid gap-14 md:grid-cols-12 md:gap-12">
+        <div className="md:col-span-4">
+          <h2 className="text-xl font-semibold">Directo</h2>
+          <dl className="mt-6 border-t border-line">
             {channels.map((channel) => (
-              <a
-                key={channel.label}
-                href={channel.href}
-                {...(channel.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                className="block bg-white p-5 rounded-lg shadow-md hover:shadow-lg transition-shadow"
-              >
-                <span className="block text-sm font-semibold text-gray-600">{channel.label}</span>
-                <span className="block text-blue-700 font-semibold break-all">{channel.value}</span>
-              </a>
+              <div key={channel.label} className="py-4 border-b border-line">
+                <dt className="text-faint text-sm">{channel.label}</dt>
+                <dd className="mt-1">
+                  <a
+                    href={channel.href}
+                    {...(channel.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                    className="text-link break-all"
+                  >
+                    {channel.value}
+                  </a>
+                </dd>
+              </div>
             ))}
-            <div className="bg-white p-5 rounded-lg shadow-md">
-              <span className="block text-sm font-semibold text-gray-600">Ubicación</span>
-              <span className="block text-gray-900 font-semibold">{personalInfo.location}</span>
+            <div className="py-4 border-b border-line">
+              <dt className="text-faint text-sm">Ubicación</dt>
+              <dd className="mt-1">{personalInfo.location}</dd>
             </div>
-          </aside>
+          </dl>
+        </div>
 
-          <section className="md:col-span-2 bg-white p-6 md:p-8 rounded-lg shadow-md">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Envíame un mensaje</h2>
+        <div className="md:col-span-8">
+          <h2 className="text-xl font-semibold">Envíame un mensaje</h2>
+          <div className="mt-6 border-t border-line pt-8">
             <ContactForm />
-          </section>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

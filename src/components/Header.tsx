@@ -1,34 +1,21 @@
 import Link from 'next/link';
 import { personalInfo } from '@/lib/data';
-
-const navLinks = [
-  { href: '/', label: 'Inicio' },
-  { href: '/projects', label: 'Proyectos' },
-  { href: '/about', label: 'Sobre Mí' },
-  { href: '/contact', label: 'Contacto' },
-];
+import NavLinks from '@/components/NavLinks';
 
 export default function Header() {
   return (
-    <header className="bg-white shadow-sm sticky top-0 z-50">
-      <nav className="container mx-auto px-4 py-4" aria-label="Navegación principal">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <Link href="/" className="text-2xl font-bold text-gray-900">
-            {personalInfo.name}
-          </Link>
-          <ul className="flex gap-4 sm:gap-6">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className="text-gray-700 hover:text-blue-600 transition"
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+    <header className="sticky top-0 z-50 bg-ground border-b border-line">
+      <nav
+        className="mx-auto max-w-6xl px-5 sm:px-8 h-16 flex items-center justify-between gap-4"
+        aria-label="Navegación principal"
+      >
+        <Link
+          href="/"
+          className="text-lg font-bold tracking-[-0.02em] text-bone transition-colors duration-200 hover:text-sage-strong"
+        >
+          {personalInfo.name}
+        </Link>
+        <NavLinks />
       </nav>
     </header>
   );
