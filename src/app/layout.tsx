@@ -5,16 +5,30 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { personalInfo } from '@/lib/data';
 
-// Libre Franklin alojada en el proyecto (variable, pesos 100-900)
-const franklin = localFont({
-  src: '../fonts/LibreFranklin-Variable.woff2',
+// Fuentes alojadas en el proyecto (variables)
+const sora = localFont({
+  src: '../fonts/Sora-Variable.woff2',
+  weight: '100 800',
+  display: 'swap',
+  variable: '--font-sora',
+});
+
+const inter = localFont({
+  src: '../fonts/Inter-Variable.woff2',
   weight: '100 900',
   display: 'swap',
-  variable: '--font-franklin',
+  variable: '--font-inter',
+});
+
+const jetbrains = localFont({
+  src: '../fonts/JetBrainsMono-Variable.woff2',
+  weight: '100 800',
+  display: 'swap',
+  variable: '--font-jetbrains',
 });
 
 export const viewport: Viewport = {
-  themeColor: '#141513',
+  themeColor: '#0b0b0e',
   colorScheme: 'dark',
 };
 
@@ -28,6 +42,7 @@ export const metadata: Metadata = {
   keywords: [
     'Pablo Isla',
     'desarrollador',
+    'full stack',
     'desarrollador web',
     'desarrollador móvil',
     'spring boot',
@@ -85,11 +100,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es" className={franklin.variable}>
+    <html lang="es" className={`${sora.variable} ${inter.variable} ${jetbrains.variable}`}>
       <body className="flex flex-col min-h-screen">
         <a
           href="#contenido"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:bg-sage focus:text-ground focus:px-4 focus:py-2 focus:rounded-full"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:bg-accent focus:text-bg focus:px-4 focus:py-2 focus:rounded-full"
         >
           Saltar al contenido
         </a>

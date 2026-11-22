@@ -1,8 +1,9 @@
-import { Project } from '@/types';
+import { Milestone, Project, TechItem } from '@/types';
 
 export const projects: Project[] = [
   {
     slug: 'edumatch-ai',
+    color: '#8b7bff',
     roleShort: 'Frontend Android, equipo de 3',
     contextShort: 'Proyecto integrador, TECSUP',
     title: 'EduMatch AI',
@@ -38,6 +39,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'marcador-26',
+    color: '#3ecf8e',
     roleShort: 'Desarrollo completo',
     contextShort: 'Desarrollo en la Nube, TECSUP',
     title: 'Marcador 26',
@@ -75,6 +77,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'elicitacion-ia',
+    color: '#ff8a5c',
     roleShort: 'Proyecto individual',
     contextShort: 'Proyecto de fin de carrera, TECSUP',
     title: 'Simulador de IA para toma de requerimientos',
@@ -101,6 +104,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'techstore',
+    color: '#38bdf8',
     roleShort: 'Web y apps móviles',
     contextShort: 'Laboratorios web y multiplataforma, TECSUP',
     title: 'TechStore',
@@ -131,6 +135,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'control-salon',
+    color: '#f472b6',
     roleShort: 'De principio a fin',
     contextShort: 'Proyecto personal para una usuaria real',
     title: 'Control de ingresos para salón de belleza',
@@ -157,6 +162,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'ecoguardia-del-ruido',
+    color: '#fbbf24',
     roleShort: 'Producto y marketing, equipo de 4',
     contextShort: 'Diseño de Proyectos de Innovación, TECSUP',
     title: 'EcoGuardia del Ruido',
@@ -185,7 +191,7 @@ export const projects: Project[] = [
 
 export const personalInfo = {
   name: 'Pablo Isla',
-  title: 'Desarrollador',
+  title: 'Desarrollador Full Stack',
   description:
     'Desarrollo aplicaciones web, móviles y backend con microservicios. Estudiante de Diseño y Desarrollo de Software en TECSUP.',
   email: 'pabloarone18@gmail.com',
@@ -204,3 +210,74 @@ export const personalInfo = {
 export const whatsappUrl = personalInfo.whatsapp
   ? `https://wa.me/${personalInfo.whatsapp}?text=${encodeURIComponent('Hola Pablo, vi tu portafolio y quisiera conversar contigo.')}`
   : '';
+
+export const milestones: Milestone[] = [
+  {
+    label: 'En curso',
+    title: 'Diseño y Desarrollo de Software',
+    org: 'TECSUP · Lima',
+    text: 'Formación en arquitectura de microservicios, desarrollo web y móvil, nube y gestión ágil de proyectos.',
+    tags: ['Java', 'Spring Cloud', 'AWS', 'Scrum'],
+    color: '#7b93ff',
+  },
+  {
+    label: 'Proyecto integrador',
+    title: 'EduMatch AI · Frontend Android',
+    org: 'Equipo de 3',
+    text: 'Diseñé la arquitectura de la app Android (MVVM, Retrofit, Hilt, DataStore) de una plataforma que conecta estudiantes con tutores mediante IA. 49 historias de usuario en 4 sprints.',
+    tags: ['Kotlin', 'Compose', 'Spring Boot', 'OpenAI'],
+    color: '#8b7bff',
+  },
+  {
+    label: 'Desarrollo en la Nube',
+    title: 'Marcador 26 · Desarrollo completo',
+    org: 'Laboratorio calificado',
+    text: 'App de pronósticos del Mundial 2026 con escalamiento horizontal: réplicas detrás de Nginx, worker con RabbitMQ y pruebas de estrés con k6.',
+    tags: ['Docker', 'RabbitMQ', 'Grafana'],
+    color: '#3ecf8e',
+  },
+  {
+    label: 'Proyecto de fin de carrera',
+    title: 'Simulador de IA para toma de requerimientos',
+    org: 'Investigación aplicada · en desarrollo',
+    text: 'Entrevistas por voz con clientes simulados por IA y evaluación automática de los requerimientos descubiertos.',
+    tags: ['IA generativa', 'Voz'],
+    color: '#ff8a5c',
+  },
+];
+
+export const techStack: { group: string; items: TechItem[] }[] = [
+  {
+    group: 'Backend',
+    items: [
+      { name: 'Java', detail: 'Lenguaje', color: '#ff8a5c' },
+      { name: 'Spring Boot', detail: 'Microservicios', color: '#3ecf8e' },
+      { name: 'Node.js', detail: 'Express', color: '#3ecf8e' },
+      { name: 'Django', detail: 'REST', color: '#3ecf8e' },
+      { name: 'RabbitMQ', detail: 'Mensajería', color: '#fbbf24' },
+    ],
+  },
+  {
+    group: 'Frontend y móvil',
+    items: [
+      { name: 'React', detail: 'Web', color: '#38bdf8' },
+      { name: 'Next.js', detail: 'Web', color: '#ededea' },
+      { name: 'TypeScript', detail: 'Lenguaje', color: '#38bdf8' },
+      { name: 'Tailwind', detail: 'Estilos', color: '#38bdf8' },
+      { name: 'Kotlin', detail: 'Android', color: '#8b7bff' },
+      { name: 'Compose', detail: 'Android UI', color: '#8b7bff' },
+      { name: 'Flutter', detail: 'Multiplataforma', color: '#38bdf8' },
+    ],
+  },
+  {
+    group: 'Datos y nube',
+    items: [
+      { name: 'MySQL', detail: 'SQL', color: '#38bdf8' },
+      { name: 'MongoDB', detail: 'NoSQL', color: '#3ecf8e' },
+      { name: 'Firebase', detail: 'Cloud', color: '#ff8a5c' },
+      { name: 'Docker', detail: 'Contenedores', color: '#38bdf8' },
+      { name: 'AWS', detail: 'Nube', color: '#fbbf24' },
+      { name: 'Git', detail: 'Versiones', color: '#ff8a5c' },
+    ],
+  },
+];

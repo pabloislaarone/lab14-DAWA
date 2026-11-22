@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { personalInfo, whatsappUrl } from '@/lib/data';
 
 export default function Footer() {
@@ -9,32 +10,29 @@ export default function Footer() {
   ].filter((link) => link.href);
 
   return (
-    <footer className="border-t border-line">
-      <div className="mx-auto max-w-6xl px-5 sm:px-8 py-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+    <footer className="border-t border-line mt-10">
+      <div className="mx-auto max-w-[1180px] px-[22px] py-9 flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
         <div>
-          <p className="font-semibold text-bone">{personalInfo.name}</p>
-          <p className="text-muted text-sm mt-1">
-            {personalInfo.title} de software · {personalInfo.location}
+          <Link href="/" className="font-mono text-[0.9rem]">
+            pablo<span className="text-accent">.</span>isla
+          </Link>
+          <p className="text-faint text-sm mt-1">
+            © {new Date().getFullYear()} {personalInfo.name} · {personalInfo.title} · {personalInfo.location}
           </p>
         </div>
-        <div className="flex flex-col gap-4 md:items-end">
-          <ul className="flex flex-wrap gap-x-6 gap-y-2">
-            {links.map((link) => (
-              <li key={link.label}>
-                <a
-                  href={link.href}
-                  {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                  className="text-link text-sm"
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-          <p className="text-faint text-sm tabular-nums">
-            © {new Date().getFullYear()} {personalInfo.name}
-          </p>
-        </div>
+        <ul className="flex flex-wrap gap-x-6 gap-y-2">
+          {links.map((link) => (
+            <li key={link.label}>
+              <a
+                href={link.href}
+                {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                className="text-link text-sm text-muted"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
     </footer>
   );

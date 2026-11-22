@@ -6,7 +6,7 @@ import { sendContactMessage, type ContactState } from '@/app/contact/actions';
 const initialState: ContactState = { status: 'idle', message: '' };
 
 const inputClass =
-  'w-full bg-paper border border-line-strong rounded-md px-4 py-3 text-bone placeholder:text-faint transition-colors duration-200 focus:outline-none focus:border-sage focus:ring-1 focus:ring-sage aria-[invalid=true]:border-danger';
+  'w-full bg-bg2 border border-line2 rounded-xl px-4 py-3 text-text placeholder:text-faint transition-colors duration-200 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent aria-[invalid=true]:border-danger';
 
 type Field = keyof NonNullable<ContactState['errors']>;
 
@@ -15,8 +15,8 @@ export default function ContactForm() {
 
   if (state.status === 'success') {
     return (
-      <div role="status" className="border border-sage rounded-md p-6">
-        <p className="text-lg font-semibold text-sage-strong">Mensaje enviado</p>
+      <div role="status" className="border border-accent rounded-xl p-6">
+        <p className="text-lg font-semibold text-accent2">Mensaje enviado</p>
         <p className="mt-2 text-muted">{state.message}</p>
       </div>
     );
@@ -41,7 +41,7 @@ export default function ContactForm() {
 
       <div className="grid gap-6 sm:grid-cols-2">
         <div>
-          <label htmlFor="name" className="block text-sm text-muted mb-2">
+          <label htmlFor="name" className="block text-[0.82rem] text-muted mb-1.5">
             Nombre
           </label>
           <input
@@ -58,7 +58,7 @@ export default function ContactForm() {
           {fieldError('name')}
         </div>
         <div>
-          <label htmlFor="email" className="block text-sm text-muted mb-2">
+          <label htmlFor="email" className="block text-[0.82rem] text-muted mb-1.5">
             Correo electrónico
           </label>
           <input
@@ -77,7 +77,7 @@ export default function ContactForm() {
       </div>
 
       <div>
-        <label htmlFor="subject" className="block text-sm text-muted mb-2">
+        <label htmlFor="subject" className="block text-[0.82rem] text-muted mb-1.5">
           Asunto
         </label>
         <input
@@ -94,7 +94,7 @@ export default function ContactForm() {
       </div>
 
       <div>
-        <label htmlFor="message" className="block text-sm text-muted mb-2">
+        <label htmlFor="message" className="block text-[0.82rem] text-muted mb-1.5">
           Mensaje
         </label>
         <textarea
@@ -111,7 +111,7 @@ export default function ContactForm() {
       </div>
 
       {state.status === 'error' && (
-        <p role="alert" className="text-danger border border-danger/40 rounded-md p-4">
+        <p role="alert" className="text-danger border border-danger/40 rounded-xl p-4">
           {state.message}
         </p>
       )}

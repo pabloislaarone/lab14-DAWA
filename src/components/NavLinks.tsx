@@ -4,8 +4,9 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const links = [
-  { href: '/projects', label: 'Proyectos' },
+  { href: '/', label: 'Inicio' },
   { href: '/about', label: 'Perfil' },
+  { href: '/projects', label: 'Proyectos' },
   { href: '/contact', label: 'Contacto' },
 ];
 
@@ -13,25 +14,22 @@ export default function NavLinks() {
   const pathname = usePathname();
 
   return (
-    <ul className="flex items-center gap-5 sm:gap-8">
+    <ul className="flex items-center">
       {links.map((link) => {
-        const active = pathname === link.href || pathname.startsWith(`${link.href}/`);
+        const active =
+          link.href === '/' ? pathname === '/' : pathname === link.href || pathname.startsWith(`${link.href}/`);
         return (
           <li key={link.href}>
             <Link
               href={link.href}
               aria-current={active ? 'page' : undefined}
-              className={`text-[0.95rem] transition-colors duration-200 hover:text-bone ${
-                active ? 'text-bone' : 'text-muted'
+              className={`block rounded-full border px-2 sm:px-3.5 py-2 text-[0.78rem] sm:text-[0.92rem] transition-colors duration-200 ${
+                active
+                  ? 'border-line2 bg-card2 text-text'
+                  : 'border-transparent text-muted hover:text-text'
               }`}
             >
               {link.label}
-              <span
-                aria-hidden="true"
-                className={`block h-px mt-1 bg-sage transition-transform duration-300 ease-[var(--ease-out)] origin-left ${
-                  active ? 'scale-x-100' : 'scale-x-0'
-                }`}
-              />
             </Link>
           </li>
         );

@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { projects } from '@/lib/data';
-import ContactBand from '@/components/ContactBand';
+import ContactCta from '@/components/ContactCta';
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -59,7 +59,7 @@ export default async function ProjectDetailPage({ params }: Props) {
 
   const next = projects[(index + 1) % projects.length];
 
-  const label = [
+  const facts = [
     { term: 'Rol', value: project.roleShort },
     { term: 'Contexto', value: project.contextShort },
     { term: 'Estado', value: project.status },
@@ -72,92 +72,99 @@ export default async function ProjectDetailPage({ params }: Props) {
   ];
 
   const links = [
-    project.demoUrl && { label: 'Ver demo', url: project.demoUrl, primary: true },
-    project.githubUrl && { label: 'Ver código', url: project.githubUrl, primary: !project.demoUrl },
-    ...(project.extraLinks ?? []).map((link) => ({ ...link, primary: false })),
-  ].filter(Boolean) as { label: string; url: string; primary: boolean }[];
+    project.demoUrl && { label: 'Ver demo', url: project.demoUrl },
+    project.githubUrl && { label: 'Ver código', url: project.githubUrl },
+    ...(project.extraLinks ?? []).map((link) => ({ label: link.label, url: link.url })),
+  ].filter(Boolean) as { label: string; url: string }[];
 
   return (
     <>
       <article>
-        <header className="mx-auto max-w-6xl px-5 sm:px-8 pt-12 md:pt-16">
+        <header className="mx-auto max-w-[1000px] px-[22px] pt-[130px]">
           <Link href="/projects" className="text-link text-[0.95rem] text-muted">
             ← Proyectos
           </Link>
-          <h1 className="mt-10 text-[clamp(2.75rem,8vw,5.5rem)] font-bold tracking-[-0.04em] leading-[0.95] max-w-4xl">
+          <p className="mt-8 text-[0.85rem] font-semibold" style={{ color: project.color }}>
+            {project.category}
+          </p>
+          <h1 className="mt-2 font-display text-[clamp(2.2rem,6vw,4rem)] font-bold leading-[1.02] tracking-[-0.035em]">
             {project.title}
           </h1>
-          <p className="mt-6 max-w-3xl text-xl md:text-2xl leading-snug text-muted">
-            {project.description}
-          </p>
+          <p className="mt-5 max-w-3xl text-[1.15rem] leading-relaxed text-muted">{project.description}</p>
 
-          {/* Cartela */}
-          <dl className="mt-10 grid sm:grid-cols-3 border-t border-line">
-            {label.map((row) => (
-              <div key={row.term} className="py-4 border-b border-line sm:pr-6">
-                <dt className="text-faint text-sm">{row.term}</dt>
-                <dd className="mt-1 flex items-center gap-2">
-                  {row.term === 'Estado' && (
+          <dl className="mt-8 grid gap-3 sm:grid-cols-3">
+            {facts.map((f) => (
+              <div key={f.term} className="rounded-2xl border border-line bg-card px-5 py-4">
+                <dt className="mono">{f.term}</dt>
+                <dd className="mt-1 flex items-center gap-2 font-semibold">
+                  {f.term === 'Estado' && (
                     <span
                       aria-hidden="true"
-                      className={`size-2 rounded-full ${
-                        project.status === 'En desarrollo' ? 'bg-sage' : 'bg-line-strong'
-                      }`}
+                      className="size-2 rounded-full"
+                      style={{ background: project.status === 'En desarrollo' ? project.color : '#55555b' }}
                     />
                   )}
-                  {row.value}
+                  {f.value}
                 </dd>
               </div>
             ))}
           </dl>
         </header>
 
-        <div className="mx-auto max-w-6xl px-5 sm:px-8 mt-10 md:mt-14">
-          <div className="relative aspect-[8/5] overflow-hidden rounded-sm bg-paper">
+        <div className="mx-auto mt-8 max-w-[1000px] px-[22px]">
+          <div
+            className="relative aspect-[8/5] overflow-hidden rounded-[22px] border"
+            style={{
+              borderColor: `color-mix(in srgb, ${project.color} 35%, #26262a)`,
+              boxShadow: `0 30px 80px -40px color-mix(in srgb, ${project.color} 60%, transparent)`,
+            }}
+          >
             <Image
               src={project.image}
-              alt={`Ilustración del proyecto ${project.title}`}
+              alt={`Recreación de la pantalla de ${project.title}`}
               fill
-              className="object-cover"
               preload
-              sizes="(max-width: 1200px) 100vw, 1088px"
+              className="object-cover"
+              sizes="(max-width: 1000px) 100vw, 956px"
             />
           </div>
-          <p className="mt-3 text-sm text-faint">{project.context}</p>
+          <p className="mono mt-3">Recreación ilustrativa · {project.context}</p>
         </div>
 
-        <div className="mx-auto max-w-6xl px-5 sm:px-8 py-20 md:py-28 flex flex-col gap-14 md:gap-16">
+        <div className="mx-auto grid max-w-[1000px] gap-12 px-[22px] py-20">
           {sections.map((section) => (
-            <section key={section.title} className="grid gap-4 md:grid-cols-12 md:gap-10">
-              <h2 className="text-xl font-semibold md:col-span-4">{section.title}</h2>
-              <p className="md:col-span-8 text-lg leading-relaxed text-bone/90 max-w-[65ch]">
-                {section.text}
-              </p>
+            <section key={section.title} className="reveal grid gap-3 md:grid-cols-[220px_1fr] md:gap-10">
+              <h2 className="text-[1.15rem] font-bold" style={{ color: project.color }}>
+                {section.title}
+              </h2>
+              <p className="max-w-[65ch] text-[1.05rem] leading-[1.75] text-[#d4d4d1]">{section.text}</p>
             </section>
           ))}
 
-          <section className="grid gap-4 md:grid-cols-12 md:gap-10">
-            <h2 className="text-xl font-semibold md:col-span-4">Lo más destacado</h2>
-            <ul className="md:col-span-8 max-w-[65ch] border-t border-line">
+          <section className="reveal grid gap-3 md:grid-cols-[220px_1fr] md:gap-10">
+            <h2 className="text-[1.15rem] font-bold" style={{ color: project.color }}>
+              Lo más destacado
+            </h2>
+            <ul className="grid gap-3">
               {project.highlights.map((item) => (
-                <li
-                  key={item}
-                  className="grid grid-cols-[1.25rem_1fr] py-4 border-b border-line text-lg leading-relaxed text-bone/90"
-                >
-                  <span aria-hidden="true" className="mt-[0.7em] size-1.5 bg-sage" />
+                <li key={item} className="grid grid-cols-[20px_1fr] text-[1.02rem] leading-relaxed text-[#d4d4d1]">
+                  <span aria-hidden="true" className="mt-[0.6em] size-1.5 rounded-full" style={{ background: project.color }} />
                   {item}
                 </li>
               ))}
             </ul>
           </section>
 
-          <section className="grid gap-4 md:grid-cols-12 md:gap-10">
-            <h2 className="text-xl font-semibold md:col-span-4">Técnica</h2>
-            <ul className="md:col-span-8 flex flex-wrap gap-x-2 gap-y-3">
+          <section className="reveal grid gap-3 md:grid-cols-[220px_1fr] md:gap-10">
+            <h2 className="text-[1.15rem] font-bold" style={{ color: project.color }}>
+              Tecnologías
+            </h2>
+            <ul className="flex flex-wrap gap-2">
               {project.technologies.map((tech) => (
                 <li
                   key={tech}
-                  className="px-3 py-1.5 rounded-full border border-line-strong text-[0.95rem]"
+                  className="tag !text-[0.8rem]"
+                  style={{ borderColor: `color-mix(in srgb, ${project.color} 30%, #26262a)` }}
                 >
                   {tech}
                 </li>
@@ -165,51 +172,56 @@ export default async function ProjectDetailPage({ params }: Props) {
             </ul>
           </section>
 
-          <section className="grid gap-4 md:grid-cols-12 md:gap-10">
-            <h2 className="text-xl font-semibold md:col-span-4">Código</h2>
-            <div className="md:col-span-8">
-              {links.length > 0 ? (
-                <div className="flex flex-wrap gap-3">
-                  {links.map((link) => (
-                    <a
-                      key={link.url}
-                      href={link.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`btn ${link.primary ? 'btn-primary' : 'btn-secondary'}`}
-                    >
-                      {link.label}
-                    </a>
-                  ))}
-                </div>
-              ) : (
-                <p className="text-lg text-muted max-w-[65ch]">
-                  El código de este proyecto es privado.{' '}
-                  <Link href="/contact" className="text-link">
-                    Escríbeme
-                  </Link>{' '}
-                  si quieres conocer más detalles.
-                </p>
-              )}
-            </div>
+          <section className="reveal grid gap-3 md:grid-cols-[220px_1fr] md:gap-10">
+            <h2 className="text-[1.15rem] font-bold" style={{ color: project.color }}>
+              Código
+            </h2>
+            {links.length > 0 ? (
+              <div className="flex flex-wrap gap-2.5">
+                {links.map((link, i) => (
+                  <a
+                    key={link.url}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`btn ${i === 0 ? '' : 'btn-2'}`}
+                    style={i === 0 ? { background: project.color, color: '#0c0c0d' } : undefined}
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+            ) : (
+              <p className="text-muted">
+                El código de este proyecto es privado.{' '}
+                <Link href="/contact" className="text-link text-text">
+                  Escríbeme
+                </Link>{' '}
+                si quieres conocer más detalles.
+              </p>
+            )}
           </section>
         </div>
       </article>
 
-      {/* Siguiente lámina */}
-      <nav aria-label="Siguiente proyecto" className="border-t border-line">
+      {/* Siguiente proyecto */}
+      <nav aria-label="Siguiente proyecto" className="mx-auto max-w-[1000px] px-[22px]">
         <Link
           href={`/projects/${next.slug}`}
-          className="group mx-auto max-w-6xl px-5 sm:px-8 py-14 md:py-20 flex flex-col gap-2"
+          className="tile group flex flex-col gap-1.5 p-7"
+          style={{ boxShadow: `inset 0 3px 0 ${next.color}` }}
         >
-          <span className="text-faint text-sm">Siguiente proyecto</span>
-          <span className="text-3xl md:text-5xl font-bold tracking-[-0.03em] transition-colors duration-200 group-hover:text-sage-strong">
+          <span className="mono">Siguiente proyecto</span>
+          <span
+            className="font-display text-[clamp(1.5rem,4vw,2.4rem)] font-bold tracking-[-0.03em] transition-colors duration-200 group-hover:text-[var(--n)]"
+            style={{ '--n': next.color } as React.CSSProperties}
+          >
             {next.title} →
           </span>
         </Link>
       </nav>
 
-      <ContactBand />
+      <ContactCta />
     </>
   );
 }

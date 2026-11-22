@@ -4,69 +4,68 @@ import { Project } from '@/types';
 
 interface ProjectCardProps {
   project: Project;
-  // Las láminas alternan de lado, como en la sala
-  reverse?: boolean;
   headingLevel?: 'h2' | 'h3';
 }
 
-// Una lámina del catálogo con su cartela
-export default function ProjectCard({ project, reverse = false, headingLevel = 'h3' }: ProjectCardProps) {
+// Tarjeta de proyecto con su color propio
+export default function ProjectCard({ project, headingLevel = 'h3' }: ProjectCardProps) {
   const Heading = headingLevel;
   const href = `/projects/${project.slug}`;
+  const dev = project.status === 'En desarrollo';
 
   return (
-    <article className="group grid gap-6 md:grid-cols-12 md:gap-10 md:items-end">
-      <Link
-        href={href}
-        tabIndex={-1}
-        aria-hidden="true"
-        className={`plate-reveal block relative aspect-[8/5] overflow-hidden rounded-sm bg-paper md:col-span-8 ${
-          reverse ? 'md:order-2 md:col-start-5' : ''
-        }`}
-      >
+    <article
+      className="pcard reveal group relative flex flex-col overflow-hidden rounded-[18px] border border-line bg-card"
+      style={{ '--pc': project.color } as React.CSSProperties}
+    >
+      <div className="pshot relative h-[210px] overflow-hidden">
         {/* Imágenes con lazy loading */}
         <Image
           src={project.image}
-          alt=""
+          alt={`Recreación de la pantalla de ${project.title}`}
           fill
           loading="lazy"
-          className="object-cover transition-transform duration-500 ease-[var(--ease-out)] group-hover:scale-[1.02]"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 760px"
+          className="object-cover transition-transform duration-500 ease-[var(--ease-out)]"
+          sizes="(max-width: 640px) 100vw, (max-width: 1000px) 50vw, 380px"
         />
-      </Link>
-
-      <div className={`md:col-span-4 ${reverse ? 'md:order-1 md:col-start-1 md:row-start-1' : ''}`}>
-        <Heading className="text-2xl md:text-[1.75rem] font-bold tracking-[-0.02em] leading-tight">
-          <Link href={href} className="transition-colors duration-200 hover:text-sage-strong">
+        <span className="absolute left-2.5 bottom-2 font-mono text-[0.6rem] text-[#8a8a8f]">
+          recreación ilustrativa
+        </span>
+      </div>
+      <div className="flex flex-1 flex-col gap-2.5 p-5">
+        <span className="cat text-[0.78rem] font-semibold">{project.category}</span>
+        <Heading className="text-[1.15rem] font-bold leading-snug">
+          <Link href={href} className="after:absolute after:inset-0 after:z-10">
             {project.title}
           </Link>
         </Heading>
-        <p className="text-muted mt-3 leading-relaxed">{project.description}</p>
-
-        <dl className="mt-6 border-t border-line text-sm">
-          {[
-            { term: 'Rol', value: project.roleShort },
-            { term: 'Contexto', value: project.contextShort },
-            { term: 'Técnica', value: project.technologies.slice(0, 4).join(' · ') },
-          ].map((row) => (
-            <div key={row.term} className="grid grid-cols-[6rem_1fr] gap-3 py-2.5 border-b border-line">
-              <dt className="text-faint">{row.term}</dt>
-              <dd className="text-bone">{row.value}</dd>
-            </div>
+        <p className="text-muted text-[0.93rem] leading-relaxed">{project.description}</p>
+        <div className="flex flex-wrap gap-1.5">
+          {project.technologies.slice(0, 3).map((tech) => (
+            <span key={tech} className="tag">
+              {tech}
+            </span>
           ))}
-          <div className="grid grid-cols-[6rem_1fr] gap-3 py-2.5 border-b border-line">
-            <dt className="text-faint">Estado</dt>
-            <dd className="flex items-center gap-2 text-bone">
-              <span
-                aria-hidden="true"
-                className={`size-2 rounded-full ${
-                  project.status === 'En desarrollo' ? 'bg-sage' : 'bg-line-strong'
-                }`}
-              />
-              {project.status}
-            </dd>
-          </div>
-        </dl>
+          {project.technologies.length > 3 && (
+            <span className="tag">+{project.technologies.length - 3}</span>
+          )}
+        </div>
+        <div className="mt-auto flex items-center justify-between pt-2.5">
+          <span className="flex items-center gap-1.5 text-[0.75rem] text-muted">
+            <span
+              aria-hidden="true"
+              className="size-1.5 rounded-full"
+              style={{ background: dev ? project.color : '#55555b' }}
+            />
+            {project.status}
+          </span>
+          <span
+            aria-hidden="true"
+            className="more rounded-full border px-3.5 py-2 text-[0.85rem] font-semibold transition-colors duration-200"
+          >
+            Ver detalle →
+          </span>
+        </div>
       </div>
     </article>
   );

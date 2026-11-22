@@ -5,7 +5,7 @@
 ```
 lab14-dawa/
 ├── public/
-│   ├── projects/            # Láminas (ilustraciones) de los proyectos
+│   ├── projects/            # Imágenes de los proyectos
 │   ├── og-image.jpg
 │   └── og-projects.jpg
 ├── src/
@@ -23,15 +23,22 @@ lab14-dawa/
 │   │   ├── robots.ts
 │   │   └── sitemap.ts
 │   ├── components/
-│   │   ├── Avatar.tsx
-│   │   ├── ContactBand.tsx
+│   │   ├── ContactCta.tsx
 │   │   ├── ContactForm.tsx
+│   │   ├── CopyEmail.tsx
 │   │   ├── Footer.tsx
 │   │   ├── Header.tsx
+│   │   ├── LimaClock.tsx
+│   │   ├── Loader.tsx
 │   │   ├── NavLinks.tsx
-│   │   └── ProjectCard.tsx
-│   ├── fonts/               # Libre Franklin (OFL)
-│   ├── lib/data.ts          # Datos personales y proyectos
+│   │   ├── ProjectCard.tsx
+│   │   ├── ProjectsTabs.tsx
+│   │   ├── TechGrid.tsx
+│   │   ├── Terminal.tsx
+│   │   ├── Timeline.tsx
+│   │   └── Typed.tsx
+│   ├── fonts/               # Sora, Inter y JetBrains Mono (OFL)
+│   ├── lib/data.ts          # Datos personales, proyectos, trayectoria y stack
 │   └── types/index.ts
 ├── .env.example
 └── next.config.ts

@@ -12,6 +12,7 @@ export interface Project {
   demoUrl?: string;
   githubUrl?: string;
   featured: boolean;
+  color: string;
   category: string;
   status: 'Terminado' | 'En desarrollo';
   context: string;
@@ -30,4 +31,19 @@ export interface Metadata {
   keywords?: string[];
   author?: string;
   ogImage?: string;
+}
+
+export interface Milestone {
+  label: string;
+  title: string;
+  org: string;
+  text: string;
+  tags: string[];
+  color: string;
+}
+
+export interface TechItem {
+  name: string;
+  detail: string;
+  color: string;
 }
